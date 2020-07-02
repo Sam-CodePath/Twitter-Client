@@ -7,7 +7,7 @@ public class User {
 
     public String name;
     public String screenName;
-    public String publicImageUrl;
+    public String profileImageUrl;
 
 
     public static User fromJson(JSONObject jsonObject) throws JSONException {
