@@ -1,5 +1,7 @@
 package com.codepath.apps.restclienttemplate.models;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +16,7 @@ public class Tweet {
 
     public String body;
     public String createdAt;
+    public String mediaUrl;
     public User user;
 
     // empty constructor needed by the Parceler library
@@ -26,7 +29,14 @@ public class Tweet {
 
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = jsonObject.getString("created_at");
+        try {
+            tweet.mediaUrl = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
+            Log.i("TweetClass", "Found image!");
+        } catch (Exception e){
+            Log.e("TweetClass", "No image found", e);
+        }
         tweet.user =  User.fromJson(jsonObject.getJSONObject("user"));
+
 
         return tweet;
     }
